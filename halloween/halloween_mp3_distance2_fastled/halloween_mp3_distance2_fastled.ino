@@ -39,17 +39,47 @@ DEFINE_GRADIENT_PALETTE( autumnrose_gp ) {
   226, 242,135, 17,
   255, 247,161, 79};
 
-
 DEFINE_GRADIENT_PALETTE( halloween_gp ) {
     0, 173, 53,  1,
   127,   0,  0,  0,
   191, 173, 53,  1,
   255, 173, 53,  1};
 
+DEFINE_GRADIENT_PALETTE( retro2_19_gp ) {
+    0, 159, 18,  1,
+  255, 171, 42, 11};
+
+DEFINE_GRADIENT_PALETTE( fire_gp ) {
+    0,   1,  1,  0,
+   76,  32,  5,  0,
+  146, 192, 24,  0,
+  197, 220,105,  5,
+  240, 252,255, 31,
+  250, 252,255,111,
+  255, 255,255,255};
+
+DEFINE_GRADIENT_PALETTE( lava_gp ) {
+    0,   0,  0,  0,
+   46,  18,  0,  0,
+   96, 113,  0,  0,
+  108, 142,  3,  1,
+  119, 175, 17,  1,
+  146, 213, 44,  2,
+  174, 255, 82,  4,
+  188, 255,115,  4,
+  202, 255,156,  4,
+  218, 255,203,  4,
+  234, 255,255,  4,
+  244, 255,255, 71,
+  255, 255,255,255};
+
 
 CRGBPalette16 celtic = celticsun_gp;  
 CRGBPalette16 autumn = autumnrose_gp;  
 CRGBPalette16 halloween = halloween_gp;  
+CRGBPalette16 retro2 = retro2_19_gp;  
+CRGBPalette16 fire = fire_gp;  
+CRGBPalette16 lava = lava_gp;  
 
 
 DFPlayerMini_Fast myMP3;
@@ -104,12 +134,12 @@ void loop()
 //inputsLow();  
 //pixels.clear();
 
-Distance=measureDistance(trigPin,echoPin);//measure distance1 and store
-Distance2=measureDistance(trigPin2,echoPin2);//measure distance2 and store
-gap=abs(Distance-auxDistance);// calculate the difference between now and last reading
-gap2=abs(Distance2-auxDistance2);// calculate the difference between now and last reading
+Distance=measureDistance(trigPin,echoPin); //measure distance1 and store
+Distance2=measureDistance(trigPin2,echoPin2); //measure distance2 and store
+gap=abs(Distance-auxDistance); // calculate the difference between now and last reading
+gap2=abs(Distance2-auxDistance2); // calculate the difference between now and last reading
 
-if(firstTime==0){//necesary for stability things
+if(firstTime==0){ //necesary for stability things
 auxDistance=Distance;
 auxDistance2=Distance2;
 gap=0;
@@ -121,7 +151,7 @@ delay(2000);
 
 if(gap>20 and gap2<20 ){ //if distance variation is 20cm
 //myMP3.play(1);//play the first song of the second folder 
-firstTime=0;//avoid errors!!we dont like errors
+firstTime=0; //avoid errors!!we dont like errors
 Serial.println("RIGHT MOVEMENT");
 for (uint8_t i=0; i<NUM_LEDS; i++) {
   uint8_t paletteIndex = map(i,0,NUM_LEDS-1,0,240);  //index is now based on pixel number
@@ -132,8 +162,8 @@ FastLED.show();  //display the pixels
 delay(2000); 
 } 
 if(gap2>20 and gap<20){ //if distance variation is 20cm
-//myMP3.play(2);//play the second song of the second folder 
-firstTime=0;//avoid errors!!we dont like errors
+//myMP3.play(2); //play the second song of the second folder 
+firstTime=0; //avoid errors!!we dont like errors
 Serial.println("LEFT MOVEMENT");
 for (uint8_t i=0; i<NUM_LEDS; i++) {
   uint8_t paletteIndex = map(i,0,NUM_LEDS-1,0,240);  //index is now based on pixel number
